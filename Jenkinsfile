@@ -21,7 +21,7 @@ pipeline {
       steps{
         script {
           echo "Build image START $BUILD_NUMBER"
-          sh "docker build --no-cache -f InventoryVer1Dockerfile -t 192.168.100.12/commerce-hj/commerce-hj-inventory:v$BUILD_NUMBER ."
+          sh "docker build --no-cache -f InventoryVer2Dockerfile -t 192.168.100.12/commerce-hj/commerce-hj-inventory:v$BUILD_NUMBER ."
           echo "Build image END"
         }
       }
@@ -46,8 +46,8 @@ pipeline {
       steps {
         script {
           echo "Deploy App START $BUILD_NUMBER"
-          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf create -f commerce-hj-inventory.yaml"
-          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf set image -n commerce-hj deployment/commerce-hj-inventory commerce-hj-inventory=192.168.100.12/commerce-hj/commerce-hj-inventory:v$BUILD_NUMBER"
+          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf create -f commerce-hj-inventory-ver2.yaml"
+          sh "/usr/local/bin/kubectl --kubeconfig=/home/jenkins/acloud-client.conf set image -n commerce-hj deployment/commerce-hj-inventory-ver2 commerce-hj-inventory-ver2=192.168.100.12/commerce-hj/commerce-hj-inventory:v$BUILD_NUMBER"
           echo "Deploy App END"
         }
       }
